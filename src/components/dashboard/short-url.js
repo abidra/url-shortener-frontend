@@ -10,6 +10,7 @@ export const ShortUrl = (props) => {
   });
   const [alert, setAlert] = useState(false);
   const [alertContent, setAlertContent] = useState('');
+  const [openDialog, setOpenDialog] = useState(false);
 
   const handleChange = (event) => {
     setValues({

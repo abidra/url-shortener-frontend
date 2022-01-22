@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { AppBar, Avatar, Badge, Box, Menu, MenuItem, IconButton, Toolbar, Tooltip, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import { Bell as BellIcon } from '../icons/bell';
-import { UserCircle as UserCircleIcon } from '../icons/user-circle';
 import { Users as UsersIcon } from '../icons/users';
 import { useAuth } from "../services/useAuth.js";
 
@@ -135,16 +133,6 @@ export const DashboardNavbar = (props) => {
               ))}
             </Menu>
           </Box>
-          {/* <Avatar
-            sx={{
-              height: 40,
-              width: 40,
-              ml: 1
-            }}
-            src="/static/images/avatars/avatar_1.png"
-          >
-            <UserCircleIcon fontSize="small" />
-          </Avatar> */}
         </Toolbar>
       </DashboardNavbarRoot>
     </>

@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useAuth } from "../services/useAuth.js";
 
 const Login = () => {

@@ -6,14 +6,11 @@ import * as Yup from 'yup';
 import {
   Box,
   Button,
-  Checkbox,
   Container,
-  FormHelperText,
   Link,
   TextField,
   Typography
 } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useDispatch } from 'react-redux';
 import { useAuth } from '../services/useAuth';
 
@@ -150,43 +147,6 @@ const Register = () => {
               value={formik.values.password}
               variant="outlined"
             />
-            {/* <Box
-              sx={{
-                alignItems: 'center',
-                display: 'flex',
-                ml: -1
-              }}
-            >
-              <Checkbox
-                checked={formik.values.policy}
-                name="policy"
-                onChange={formik.handleChange}
-              />
-              <Typography
-                color="textSecondary"
-                variant="body2"
-              >
-                I have read the
-                {' '}
-                <NextLink
-                  href="#"
-                  passHref
-                >
-                  <Link
-                    color="primary"
-                    underline="always"
-                    variant="subtitle2"
-                  >
-                    Terms and Conditions
-                  </Link>
-                </NextLink>
-              </Typography>
-            </Box> */}
-            {/* {Boolean(formik.touched.policy && formik.errors.policy) && (
-              <FormHelperText error>
-                {formik.errors.policy}
-              </FormHelperText>
-            )} */}
             <Box sx={{ py: 2 }}>
               <Button
                 color="primary"
