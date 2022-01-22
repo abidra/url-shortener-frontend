@@ -5,13 +5,11 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Facebook as FacebookIcon } from '../icons/facebook';
-import { Google as GoogleIcon } from '../icons/google';
-import axios from 'axios';
-import apiClient from '../services/api';
+import { useAuth } from "../services/useAuth.js";
 
 const Login = () => {
   const router = useRouter();
+  const { login } = useAuth();
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -31,13 +29,19 @@ const Login = () => {
         .required(
           'Password is required')
     }),
-    onSubmit: (value) => {
-        apiClient.post('/login', {
-          email: value.email,
-          password: value.password
-        }).then(response => {
-          console.log(response);
-        });
+    onSubmit: async ({ email, password }) => {
+      try {
+        const loginAttempt = await login(email, password);
+        console.log(loginAttempt);
+        if (loginAttempt.status === 200) {
+          router.push('/');
+        } else {
+          alert('Login failed');
+        }
+        
+      } catch (error) {
+        console.error(error);
+      }
     }
   });
 
@@ -56,17 +60,6 @@ const Login = () => {
         }}
       >
         <Container maxWidth="sm">
-          <NextLink
-            href="/"
-            passHref
-          >
-            <Button
-              component="a"
-              startIcon={<ArrowBackIcon fontSize="small" />}
-            >
-              Dashboard
-            </Button>
-          </NextLink>
           <form onSubmit={formik.handleSubmit}>
             <Box sx={{ my: 3 }}>
               <Typography

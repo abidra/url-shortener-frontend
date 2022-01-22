@@ -14,8 +14,11 @@ import {
   Typography
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useDispatch } from 'react-redux';
+import { useAuth } from '../services/useAuth';
 
 const Register = () => {
+  const {register} = useAuth();
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
@@ -23,7 +26,6 @@ const Register = () => {
       firstName: '',
       lastName: '',
       password: '',
-      policy: false
     },
     validationSchema: Yup.object({
       email: Yup
@@ -48,15 +50,20 @@ const Register = () => {
         .max(255)
         .required(
           'Password is required'),
-      policy: Yup
-        .boolean()
-        .oneOf(
-          [true],
-          'This field must be checked'
-        )
     }),
-    onSubmit: () => {
-      router.push('/');
+    onSubmit: async(value) => {
+      try {
+        const registerAttempt = await register(value);
+        console.log(registerAttempt);
+        if (registerAttempt.status === 201) {
+          router.push('/');
+        } else {
+          alert('Register failed');
+        }
+        
+      } catch (error) {
+        console.error(error);
+      }
     }
   });
 
@@ -77,17 +84,6 @@ const Register = () => {
         }}
       >
         <Container maxWidth="sm">
-          <NextLink
-            href="/"
-            passHref
-          >
-            <Button
-              component="a"
-              startIcon={<ArrowBackIcon fontSize="small" />}
-            >
-              Dashboard
-            </Button>
-          </NextLink>
           <form onSubmit={formik.handleSubmit}>
             <Box sx={{ my: 3 }}>
               <Typography
@@ -154,7 +150,7 @@ const Register = () => {
               value={formik.values.password}
               variant="outlined"
             />
-            <Box
+            {/* <Box
               sx={{
                 alignItems: 'center',
                 display: 'flex',
@@ -185,12 +181,12 @@ const Register = () => {
                   </Link>
                 </NextLink>
               </Typography>
-            </Box>
-            {Boolean(formik.touched.policy && formik.errors.policy) && (
+            </Box> */}
+            {/* {Boolean(formik.touched.policy && formik.errors.policy) && (
               <FormHelperText error>
                 {formik.errors.policy}
               </FormHelperText>
-            )}
+            )} */}
             <Box sx={{ py: 2 }}>
               <Button
                 color="primary"

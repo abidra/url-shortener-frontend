@@ -8,6 +8,7 @@ import { createEmotionCache } from '../utils/create-emotion-cache';
 import { theme } from '../theme';
 import store from '../store/reduxStore'
 import { Provider } from 'react-redux';
+import { ProvideAuth } from "../services/useAuth.js";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -30,9 +31,11 @@ const App = (props) => {
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Provider store={store}>
-          {getLayout(<Component {...pageProps} />)}
-          </Provider>
+          <ProvideAuth>
+            <Provider store={store}>
+            {getLayout(<Component {...pageProps} />)}
+            </Provider>
+          </ProvideAuth>
         </ThemeProvider>
       </LocalizationProvider>
     </CacheProvider>

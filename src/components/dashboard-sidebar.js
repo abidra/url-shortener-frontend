@@ -22,11 +22,6 @@ const items = [
     icon: (<ChartBarIcon fontSize="small" />),
     title: 'Dashboard'
   },
-  {
-    href: '/logout',
-    icon: (<XCircleIcon fontSize="small" />),
-    title: 'Logout'
-  },
 ];
 
 export const DashboardSidebar = (props) => {
