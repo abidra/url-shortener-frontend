@@ -16,14 +16,24 @@ import {
   Tooltip
 } from '@mui/material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import { DataGrid } from '@mui/x-data-grid'
+import { DataGrid, useGridApiRef } from '@mui/x-data-grid'
 import { SeverityPill } from '../severity-pill';
 import { useSelector } from 'react-redux';
 import apiClient from '../../services/api'
 import { useDispatch } from 'react-redux';
 import { deleteUrl } from 'src/slices/short-url';
 
+export const LatestUrls = (props) => {
+const [tableData, setTableData] = useState([])
+useEffect(() => {
+  apiClient.get('/api/latest-url')
+    .then((response) => response.data)
+    .then((response) => setTableData(response.data))
+
+}, [])
+
 const renderDetailsButton = (params) => {
+  const apiRef = useGridApiRef();
   const dispatch = useDispatch();
   const handleEdit = () => {
     console.log('Edit');
@@ -31,6 +41,12 @@ const renderDetailsButton = (params) => {
    
    const handleDelete = () => {
       dispatch(deleteUrl(params.row.id));
+      setTableData((prevtableData) => {
+        const id = params.row.id;
+        return [
+          ...tableData.filter(data => data.id !== id)
+        ];
+      });
    }
    
    const handleView = () => {
@@ -58,15 +74,6 @@ const columns = [
   }
 ]
 
-export const LatestUrls = (props) => {
-const [tableData, setTableData] = useState([])
-useEffect(() => {
-  apiClient.get('/api/latest-url')
-    .then((response) => response.data)
-    .then((response) => setTableData(response.data))
-
-}, [])
-console.log(tableData);
 const { urls } = useSelector((state) => state.url);  
 return (
   <Card {...props}>

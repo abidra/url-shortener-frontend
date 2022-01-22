@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Box, Button, Card, CardContent, CardHeader, Divider, TextField } from '@mui/material';
+import { Alert, AlertTitle, Box, Button, Card, CardContent, CardHeader, Divider, TextField } from '@mui/material';
 import { sendUrl } from 'src/slices/short-url';
 
 export const ShortUrl = (props) => {
@@ -8,6 +8,8 @@ export const ShortUrl = (props) => {
   const [values, setValues] = useState({
     url: '',
   });
+  const [alert, setAlert] = useState(false);
+  const [alertContent, setAlertContent] = useState('');
 
   const handleChange = (event) => {
     setValues({
@@ -16,9 +18,20 @@ export const ShortUrl = (props) => {
     });
     console.log(event.target.name);
   };
-  const handleClick = () => {
-    // console.log(values);
-    dispatch(sendUrl(values));
+  const handleClick = async() => {
+    try {
+      const shortUrl = await dispatch(sendUrl(values));;
+      console.log(shortUrl);
+      if (shortUrl.status === 200) {
+        setAlertContent('http://localhost/'+shortUrl.data.url_key);
+        setAlert(true);
+      } else {
+        alert('shortUrl failed');
+      }
+      
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -40,6 +53,12 @@ export const ShortUrl = (props) => {
             value={values.url}
             variant="outlined"
           />
+          {alert ?
+            <Alert severity="success">
+              <AlertTitle>Success</AlertTitle>
+              {alertContent}
+            </Alert> : <></>
+          }
         </CardContent>
         <Divider />
         <Box
