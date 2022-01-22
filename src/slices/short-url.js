@@ -67,24 +67,22 @@ const initialState = {
 ]
 };
 
-export const sendUrl = (value) => async (dispatch) => {
-    // Here make an async request to your sever and extract the data from the server response
-    // const response = await apiClient.get('/shortUrl');
-    // const { data } = response;
-    console.log(value);
-
-    // const data = [
-    //   {
-    //     id: '1',
-    //     title: 'My first article'
-    //   }
-    // ];
-    apiClient.post('/shortUrl', {
-        url: value.url,
-      }).then(response => {
-        dispatch(slice.actions.setUrls(response.data));
-      });
+//Shorten URL
+export const sendUrl = ( {url} ) => async (dispatch) => {
+    const csrf = await apiClient.get('/sanctum/csrf-cookie');
+    const shortUrl = await apiClient.post('/api/short-url', {
+        url: url,
+    });
+    console.log(shortUrl);
 };
+
+//Delete Shorten URL
+export const deleteUrl = (id) => async (dispatch) => {
+  console.log(id);
+  const csrf = await apiClient.get('/sanctum/csrf-cookie');
+  const shortUrl = await apiClient.delete('/api/short-url/'+id);
+  console.log(shortUrl);
+}
 
 const slice = createSlice({
   name: 'url',

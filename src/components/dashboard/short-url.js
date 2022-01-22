@@ -7,7 +7,6 @@ export const ShortUrl = (props) => {
   const dispatch = useDispatch();
   const [values, setValues] = useState({
     url: '',
-    confirm: ''
   });
 
   const handleChange = (event) => {
@@ -17,7 +16,7 @@ export const ShortUrl = (props) => {
     });
     console.log(event.target.name);
   };
-  const handleClick = (event) => {
+  const handleClick = () => {
     // console.log(values);
     dispatch(sendUrl(values));
   };

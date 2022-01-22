@@ -7,7 +7,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { Bell as BellIcon } from '../icons/bell';
 import { UserCircle as UserCircleIcon } from '../icons/user-circle';
 import { Users as UsersIcon } from '../icons/users';
-import { useDispatch } from 'react-redux';
+import { useAuth } from "../services/useAuth.js";
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -19,7 +19,7 @@ const settings = ['Dashboard', 'Logout'];
 export const DashboardNavbar = (props) => {
   const { onSidebarOpen, ...other } = props;
 
-  const dispatch = useDispatch();
+  const { logout } = useAuth();
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -28,9 +28,20 @@ export const DashboardNavbar = (props) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = (event) => {
+  const handleCloseNavMenu = async(event) => {
     if(event === 1){
-      // dispatch(logout());
+      try {
+        const logoutAttempt = await logout();
+        console.log(logoutAttempt);
+        if (logoutAttempt.status === 204) {
+          router.push('/login');
+        } else {
+          alert('logout failed');
+        }
+        
+      } catch (error) {
+        console.error(error);
+      }
     }
     setAnchorElNav(null);
   };

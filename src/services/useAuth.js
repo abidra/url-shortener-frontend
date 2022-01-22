@@ -40,7 +40,7 @@ function useProvideAuth() {
     return register;
   };
 
-  const logout = async(email, password) => {
+  const logout = async() => {
     const csrf = await apiClient.get('/sanctum/csrf-cookie');
     const user = await apiClient.post('/logout');
     setUser(false);

@@ -30,20 +30,16 @@ const Dashboard = () => {
           sx={{ mb: 3 }}
           variant="h4"
         >
-          Settings
+          Dashboard
         </Typography>
         <Box sx={{ pt: 3 }}>
           <ShortUrl />
         </Box>
       </Container>
 
-      <Container maxWidth="lg">
-        <Typography
-          sx={{ my: 3 }}
-          variant="h4"
-        >
-          Latest URLs
-        </Typography>
+      <Container 
+      sx={{ my: 3}}
+      maxWidth="lg">
         <Box>
           <LatestUrls />
         </Box>
