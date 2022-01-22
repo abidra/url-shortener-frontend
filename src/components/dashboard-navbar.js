@@ -8,7 +8,6 @@ import { Bell as BellIcon } from '../icons/bell';
 import { UserCircle as UserCircleIcon } from '../icons/user-circle';
 import { Users as UsersIcon } from '../icons/users';
 import { useDispatch } from 'react-redux';
-import { logout } from 'src/slices/auth';
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -31,7 +30,7 @@ export const DashboardNavbar = (props) => {
 
   const handleCloseNavMenu = (event) => {
     if(event === 1){
-      dispatch(logout());
+      // dispatch(logout());
     }
     setAnchorElNav(null);
   };
