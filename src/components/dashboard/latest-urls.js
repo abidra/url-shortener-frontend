@@ -25,7 +25,7 @@ useEffect(() => {
 
 }, [])
 
-const renderDetailsButton = (params) => {
+const RenderDetailsButton = (params) => {
   const dispatch = useDispatch();
   const handleEdit = () => {
     console.log('Edit');
@@ -62,7 +62,7 @@ const columns = [
     field: 'action', 
     headerName: 'Action', 
     width: 400 ,
-    renderCell: renderDetailsButton,
+    renderCell: RenderDetailsButton,
   }
 ]
 
