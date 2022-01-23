@@ -9,7 +9,7 @@ import {
   CardHeader,
 } from '@mui/material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import { DataGrid, useGridApiRef } from '@mui/x-data-grid'
+import { DataGrid } from '@mui/x-data-grid'
 import { SeverityPill } from '../severity-pill';
 import { useSelector } from 'react-redux';
 import apiClient from '../../services/api'
@@ -26,7 +26,6 @@ useEffect(() => {
 }, [])
 
 const renderDetailsButton = (params) => {
-  const apiRef = useGridApiRef();
   const dispatch = useDispatch();
   const handleEdit = () => {
     console.log('Edit');
